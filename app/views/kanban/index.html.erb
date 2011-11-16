@@ -1,0 +1,27 @@
+<table class="list">
+  <tr>
+    <th>&nbsp;</th>
+    <% @statuses.each do |status| %>
+    <th><%= status.name %></th>
+    <% end %>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <th><%= user.name %></th>
+    <% @statuses.each do |status| %>
+    <td>
+      <table width="100%">
+      <% issue_list(Issue.all(:conditions => {:assigned_to_id => user.id, :status_id => status.id})) do |issue,level| %>
+        <% next if issue.closed? and issue.updated_on < Setting.plugin_kanban_table[:closed_expire].to_i.days.ago %>
+        <tr class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
+          <td width="100%">
+            <%= link_to issue.subject, :controller => 'issues', :action => 'show', :id => issue %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

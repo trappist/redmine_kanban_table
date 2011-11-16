@@ -1,0 +1,3 @@
+= kanban_table
+
+Redmine plugin to display a simple kanban table for managers

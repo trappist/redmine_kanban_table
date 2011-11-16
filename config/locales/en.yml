@@ -1,0 +1,4 @@
+# English strings go here for Rails i18n
+en:
+  kanban_table_settings_label_issue_stati: "Issue Statuses"
+  kanban_table_settings_label_closed_expire: "Days to expire closed issues"

@@ -1,0 +1,12 @@
+<p>
+  <%= content_tag(:label, l(:kanban_table_settings_label_issue_stati)) %>
+  <% stati = Setting.plugin_kanban_table[:issue_stati] %>
+  <% selected = stati ? stati.map(&:to_i) : nil %>
+  <%= select_tag 'settings[issue_stati][]', options_from_collection_for_select(IssueStatus.all, :id, :name, selected), :multiple => true %>
+</p>
+
+<p>
+  <%= content_tag(:label, l(:kanban_table_settings_label_closed_expire)) %>
+  <%= text_field_tag 'settings[closed_expire]', Setting.plugin_kanban_table[:closed_expire], :size => 2 %>
+</p>
+
