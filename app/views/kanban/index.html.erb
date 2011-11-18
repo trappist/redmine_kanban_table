@@ -2,7 +2,12 @@
   <tr>
     <th>&nbsp;</th>
     <% @statuses.each do |status| %>
-    <th><%= status.name %></th>
+    <th>
+      <%= status.name %>
+      <% if status.is_closed %>
+        (Last <%= Setting.plugin_kanban_table[:closed_expire] %> days)
+      <% end %>
+    </th>
     <% end %>
   </tr>
   <% @users.each do |user| %>
