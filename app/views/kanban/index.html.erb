@@ -1,5 +1,5 @@
 <table class="list">
-  <tr>
+  <tr style="border-bottom: 2px solid #c0c0c0;">
     <th>&nbsp;</th>
     <% @statuses.each do |status| %>
     <th>
@@ -11,7 +11,7 @@
     <% end %>
   </tr>
   <% @users.each do |user| %>
-  <tr>
+  <tr style="border-bottom: 1px solid #c0c0c0;">
     <th><%= user.name %></th>
     <% @statuses.each do |status| %>
     <td>
