@@ -9,6 +9,6 @@ Redmine::Plugin.register :kanban_table do
   author_url 'http://github.com/trappist'
   settings :default => { 
     :closed_expire => "7"
-  }, :partial => 'shared/settings'
+  }, :partial => 'settings/partial'
 
 end
