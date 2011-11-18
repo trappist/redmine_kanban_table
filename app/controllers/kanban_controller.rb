@@ -4,7 +4,7 @@ class KanbanController < ApplicationController
   
   def index
     @users = User.current.team
-    @statuses = IssueStatus.find(Setting.plugin_kanban_table['issue_stati'])
+    @statuses = IssueStatus.find(Setting.plugin_kanban_table['issue_stati'], :order => "position")
   end
 
 end
