@@ -1,3 +1,10 @@
+<strong>Team: </strong>
+<select id="teampicker" onchange="location.href='/kanban/'+this.options[this.options.selectedIndex].value">
+  <% @managers.each do |manager| %>
+  <option<%= " selected" if manager==@manager %> value="<%= manager.login %>"><%= manager.name %></option>
+  <% end %>
+</select>
+
 <table class="list">
   <tr style="border-bottom: 2px solid #c0c0c0;">
     <th>&nbsp;</th>
@@ -10,7 +17,7 @@
     </th>
     <% end %>
   </tr>
-  <% @users.each do |user| %>
+  <% @team.each do |user| %>
   <tr style="border-bottom: 1px solid #c0c0c0;">
     <th><%= user.name %></th>
     <% @statuses.each do |status| %>
