@@ -1,7 +1,7 @@
 <strong>Team: </strong>
 <select id="teampicker" onchange="location.href='/kanban/'+this.options[this.options.selectedIndex].value">
   <% @managers.each do |manager| %>
-  <option<%= " selected" if manager==@manager %> value="<%= manager.login %>"><%= manager.name %></option>
+  <option<%= " selected" if manager==@manager %> value="<%= manager.login %>"><%= manager.teamname %></option>
   <% end %>
 </select>
 
