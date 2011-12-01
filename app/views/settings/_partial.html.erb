@@ -10,3 +10,17 @@
   <%= text_field_tag 'settings[closed_expire]', Setting.plugin_kanban_table[:closed_expire], :size => 2 %>
 </p>
 
+<% if Setting.plugin_kanban_table[:issue_stati] and Setting.plugin_kanban_table[:issue_stati].any? %>
+  <% stati = IssueStatus.find(*Setting.plugin_kanban_table[:issue_stati]) %>
+  <% width = stati.map(&:name).max_by(&:size)*10 %>
+  <% stati.reject(&:is_closed).each do |status| %>
+      <p>
+        <span style="width:<%= width %>px;">
+          <%= content_tag(:label, status.name+' limit: ') %>
+        </span>
+        <span style="float:left;">
+          <%= text_field_tag "settings[limits][#{status.id}]", (Setting.plugin_kanban_table[:limits][status.id.to_s] rescue nil), :size => 2 %>
+        </span>
+      </p>
+  <% end %>
+<% end %>

@@ -13,6 +13,8 @@
       <%= status.name %>
       <% if status.is_closed %>
         (Last <%= Setting.plugin_kanban_table[:closed_expire] %> days)
+      <% elsif @limits[status.id] %>
+        (<%= Issue.count(:conditions => {:assigned_to_id => @team.map(&:id), :status_id => status.id}) %> of <%= @limits[status.id] * @team.size %>)
       <% end %>
     </th>
     <% end %>
@@ -21,9 +23,10 @@
   <tr style="border-bottom: 1px solid #c0c0c0;">
     <th><%= user.name %></th>
     <% @statuses.each do |status| %>
+    <% issues = Issue.all(:conditions => {:assigned_to_id => user.id, :status_id => status.id}) %>
     <td>
-      <table width="100%">
-      <% issue_list(Issue.all(:conditions => {:assigned_to_id => user.id, :status_id => status.id})) do |issue,level| %>
+      <table width="100%"<%= %Q[ style="background-color:#EEBBBB;border:2px solid red"] if @limits[status.id] and issues.size > @limits[status.id] %>>
+      <% issue_list(issues) do |issue,level| %>
         <% next if issue.closed? and issue.updated_on < Setting.plugin_kanban_table[:closed_expire].to_i.days.ago %>
         <tr class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
           <td width="100%">
