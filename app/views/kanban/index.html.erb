@@ -1,7 +1,7 @@
 <strong>Team: </strong>
 <select id="teampicker" onchange="location.href='/kanban/'+this.options[this.options.selectedIndex].value">
-  <% @managers.each do |manager| %>
-  <option<%= " selected" if manager==@manager %> value="<%= manager.login %>"><%= manager.teamname %></option>
+  <% @teams.each do |team| %>
+  <option<%= " selected" if team==@team %> value="<%= team.id %>"><%= team.name %></option>
   <% end %>
 </select>
 
@@ -14,12 +14,12 @@
       <% if status.is_closed %>
         (Last <%= Setting.plugin_kanban_table[:closed_expire] %> days)
       <% elsif @limits[status.id] %>
-        (<%= Issue.count(:conditions => {:assigned_to_id => @team.map(&:id), :status_id => status.id}) %> of <%= @limits[status.id] * @team.size %>)
+        (<%= Issue.count(:conditions => {:assigned_to_id => @team.users.map(&:id), :status_id => status.id}) %> of <%= @limits[status.id] * @team.users.count %>)
       <% end %>
     </th>
     <% end %>
   </tr>
-  <% @team.each do |user| %>
+  <% @team.users.each do |user| %>
   <tr style="border-bottom: 1px solid #c0c0c0;">
     <th><%= user.name %></th>
     <% @statuses.each do |status| %>
